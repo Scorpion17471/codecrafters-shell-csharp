@@ -14,4 +14,4 @@ do
 
     // Return invalid command message
     Console.WriteLine($"{command}: command not found");
-} while (command != "exit");
+} while (command != null);

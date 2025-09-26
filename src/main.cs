@@ -5,13 +5,16 @@ using System.Net.Sockets;
 // Uncomment this line to pass the first stage
 Console.Write("$ ");
 
-var command = string.Empty;
-
-do
+while (true)
 {
     // Wait for user input
-    command = Console.ReadLine();
+    var command = Console.ReadLine();
+
+    if (string.IsNullOrWhiteSpace(command))
+    {
+        break;
+    }
 
     // Return invalid command message
     Console.WriteLine($"{command}: command not found");
-} while (command != null);
+}

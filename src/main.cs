@@ -1,11 +1,17 @@
+using System.Data;
 using System.Net;
 using System.Net.Sockets;
 
 // Uncomment this line to pass the first stage
 Console.Write("$ ");
 
-// Wait for user input
-var command = Console.ReadLine();
+var command = string.Empty;
 
-// Return invalid command message
-Console.WriteLine($"{command}: command not found");
+do
+{
+    // Wait for user input
+    command = Console.ReadLine();
+
+    // Return invalid command message
+    Console.WriteLine($"{command}: command not found");
+} while (command != "exit");

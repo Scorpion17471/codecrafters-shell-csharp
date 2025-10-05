@@ -10,9 +10,9 @@ while (true)
     // Wait for user input
     String? input = Console.ReadLine()?.Trim();
 
-    if (string.IsNullOrWhiteSpace(input) || input.ToLower() == "exit")
+    if (input.ToLower().ToLower()[..4] == "exit")
     {
-        break;
+        return Convert.ToInt32(input[5..]);
     }
 
     // Return invalid command message

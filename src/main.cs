@@ -8,13 +8,13 @@ while (true)
     Console.Write("$ ");
 
     // Wait for user input
-    var command = Console.ReadLine();
+    String? input = Console.ReadLine()?.Trim();
 
-    if (string.IsNullOrWhiteSpace(command))
+    if (string.IsNullOrWhiteSpace(input) || input.ToLower() == "exit")
     {
         break;
     }
 
     // Return invalid command message
-    Console.WriteLine($"{command}: command not found");
+    Console.WriteLine($"{input}: command not found");
 }

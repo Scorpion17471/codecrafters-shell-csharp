@@ -28,6 +28,13 @@ namespace src
                 {
                     Console.Write(Commands.Echo(input) + '\n');
                 }
+
+                // Type Command
+                else if (!String.IsNullOrEmpty(input) && input.ToLower().ToLower()[..4] == "type")
+                {
+                    Console.Write(Commands.Type(input[5..]) + '\n');
+                }
+
                 // Invalid command
                 else
                 {

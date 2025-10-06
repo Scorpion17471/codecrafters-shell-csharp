@@ -11,11 +11,11 @@ namespace src
         {
             while (true)
             {
-                // Uncomment this line to pass the first stage
-                Console.Write("$ ");
-
                 // Wait for user input
                 String? input = Console.ReadLine()?.Trim();
+
+                // Uncomment this line to pass the first stage
+                Console.Write("$ ");
 
                 // Check for exit command (Exit - Quits shell with given exit code)
                 if (!String.IsNullOrEmpty(input) && input.ToLower()[..4] == "exit")

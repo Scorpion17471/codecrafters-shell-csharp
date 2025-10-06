@@ -11,11 +11,11 @@ namespace src
         {
             while (true)
             {
-                // Wait for user input
-                String? input = Console.ReadLine()?.Trim();
-
                 // Uncomment this line to pass the first stage
                 Console.Write("$ ");
+
+                // Wait for user input
+                String? input = Console.ReadLine()?.Trim();
 
                 // Check for exit command (Exit - Quits shell with given exit code)
                 if (!String.IsNullOrEmpty(input) && input.ToLower()[..4] == "exit")
@@ -26,7 +26,7 @@ namespace src
                 // Echo Command
                 else if (!String.IsNullOrEmpty(input) && input.ToLower().ToLower()[..4] == "echo")
                 {
-                    Console.Write(Commands.Echo(input));
+                    Console.Write(Commands.Echo(input) + '\n');
                 }
                 // Invalid command
                 else

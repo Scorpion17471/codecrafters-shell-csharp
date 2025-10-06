@@ -10,7 +10,8 @@ namespace src
     {
         private static readonly List<string> commands = [
             "echo",
-            "exit"
+            "exit",
+            "type"
         ];
         // Echo - Return everything in input string after "echo "
         public static string Echo(string input)

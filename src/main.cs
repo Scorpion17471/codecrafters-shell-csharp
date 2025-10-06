@@ -26,11 +26,14 @@ namespace src
                 // Echo Command
                 else if (!String.IsNullOrEmpty(input) && input.ToLower().ToLower()[..4] == "echo")
                 {
-                    Commands.Echo(input);
+                    Console.Write(Commands.Echo(input));
                 }
-
-                // Return invalid command message
-                Console.WriteLine($"{input}: command not found");
+                // Invalid command
+                else
+                {
+                    // Return invalid command message
+                    Console.WriteLine($"{input}: command not found");
+                }
             }
         }
     }

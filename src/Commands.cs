@@ -9,10 +9,9 @@ namespace src
     public class Commands
     {
         // Echo - Return everything in input string after "echo "
-        public static void Echo(string input)
+        public static string Echo(string input)
         {
-            Console.WriteLine(input[5..]);
-            return;
+            return input[5..];
         }
     }
 }

@@ -35,11 +35,11 @@ namespace src
                     Console.Write(Commands.Type(input[5..]) + '\n');
                 }
 
-                // Invalid command
+                // Unknown Command
                 else
                 {
-                    // Return invalid command message
-                    Console.WriteLine($"{input}: command not found");
+                    // Try command
+                    Commands.TestCommand(args);
                 }
             }
         }

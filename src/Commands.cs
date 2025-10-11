@@ -68,8 +68,9 @@ namespace src
         // TestCommand - Return invalid command message
         public static void TestCommand(string[] args)
         {
+            Console.WriteLine(args);
             // Check for command in any path provided
-            #pragma warning disable CS8602 // Suppress possible null reference warning
+#pragma warning disable CS8602 // Suppress possible null reference warning
             foreach (var path in Environment.GetEnvironmentVariable("PATH").Split(Path.PathSeparator))
             #pragma warning restore CS8602 // Restore possible null reference warning
             {

@@ -39,6 +39,7 @@ namespace src
                 else
                 {
                     // Try command
+                    Console.WriteLine(args);
                     Commands.TestCommand(args);
                 }
             }

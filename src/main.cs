@@ -24,15 +24,21 @@ namespace src
                 }
 
                 // Echo Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower().ToLower()[..4] == "echo")
+                else if (!String.IsNullOrEmpty(input) && input.ToLower()[..4] == "echo")
                 {
                     Console.Write(Commands.Echo(input) + '\n');
                 }
 
                 // Type Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower().ToLower()[..4] == "type")
+                else if (!String.IsNullOrEmpty(input) && input.ToLower()[..4] == "type")
                 {
                     Console.Write(Commands.Type(input[5..]) + '\n');
+                }
+
+                // PWD Command
+                else if (!String.IsNullOrEmpty(input) && input.ToLower()[..3] == "pwd")
+                {
+                    Console.Write(Commands.PWD());
                 }
 
                 // Unknown Command

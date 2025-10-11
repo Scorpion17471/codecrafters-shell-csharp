@@ -15,9 +15,10 @@ namespace src
         private static readonly List<string> commands = [
             "echo",
             "exit",
-            "type"
+            "type",
+            "pwd"
         ];
-        // IsExecutable - Check if file is executable
+        // IsExecutable - Check if file is executable (Private helper function)
         private static bool IsExecutable(string path)
         {
             if (System.OperatingSystem.IsWindows())
@@ -89,6 +90,11 @@ namespace src
 
             // Return invalid command message if command not found in any path
             Console.WriteLine($"{args[0]}: command not found");
+        }
+        // PWD - Return current working directory
+        public static string PWD()
+        {
+            return Directory.GetCurrentDirectory();
         }
     }
 }

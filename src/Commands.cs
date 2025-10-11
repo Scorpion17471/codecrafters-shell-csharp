@@ -78,7 +78,8 @@ namespace src
                 // If file exists and is executable, run it with args
                 if (File.Exists(fullPath) && IsExecutable(fullPath))
                 {
-                    Process.Start(fullPath, string.Join(' ', args[1..]));
+                    string argString = string.Join(' ', args[1..]);
+                    Process.Start(fullPath, argString);
                     return;
                 }
             }

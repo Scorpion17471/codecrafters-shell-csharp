@@ -66,20 +66,23 @@ namespace src
             return $"{command}: not found";
         }
         // TestCommand - Return invalid command message
-        public static void TestCommand(string[] args)
+        public static void TestCommand(string fullCommand)
         {
-            Console.WriteLine(args);
+            // Split command into function and args (only first space)
+            string[] args = fullCommand.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
+            
             // Check for command in any path provided
-#pragma warning disable CS8602 // Suppress possible null reference warning
+            #pragma warning disable CS8602 // Suppress possible null reference warning
             foreach (var path in Environment.GetEnvironmentVariable("PATH").Split(Path.PathSeparator))
             #pragma warning restore CS8602 // Restore possible null reference warning
             {
+                // Assemble full path to command
                 string fullPath = Path.Combine(path, args[0]);
                 // If file exists and is executable, run it with args
                 if (File.Exists(fullPath) && IsExecutable(fullPath))
                 {
-                    string argString = string.Join(' ', args[1..]);
-                    Process.Start(fullPath, argString);
+                    // Start process with args if they exist
+                    Process.Start(fullPath, args[1]);
                     return;
                 }
             }

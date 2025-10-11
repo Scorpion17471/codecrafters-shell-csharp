@@ -38,7 +38,7 @@ namespace src
                 // PWD Command
                 else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ')[0] == "pwd")
                 {
-                    Console.Write(Commands.PWD());
+                    Console.Write(Commands.PWD() + '\n');
                 }
 
                 // Unknown Command

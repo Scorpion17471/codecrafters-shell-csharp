@@ -32,7 +32,7 @@ namespace src
                 // Type Command
                 else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ', 2)[0] == "type")
                 {
-                    Console.Write(Commands.Type(input.Split(' ', 2)[1] + '\n'));
+                    Console.Write(Commands.Type(input.Split(' ', 2)[1]) + '\n');
                 }
 
                 // PWD Command

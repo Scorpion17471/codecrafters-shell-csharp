@@ -38,6 +38,7 @@ namespace src
                 // PWD Command
                 else if (!String.IsNullOrEmpty(input) && input.ToLower()[..3] == "pwd")
                 {
+                    //This should be working
                     Console.Write(Commands.PWD());
                 }
 

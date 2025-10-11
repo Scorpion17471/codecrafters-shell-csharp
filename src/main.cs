@@ -18,27 +18,26 @@ namespace src
                 String? input = Console.ReadLine()?.Trim();
 
                 // Check for exit command (Exit - Quits shell with given exit code)
-                if (!String.IsNullOrEmpty(input) && input.ToLower()[..4] == "exit")
+                if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ', 2)[0] == "exit")
                 {
-                    return Convert.ToInt32(input[5..]);
+                    return Convert.ToInt32(input.Split(' ', 2)[1]);
                 }
 
                 // Echo Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower()[..4] == "echo")
+                else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ', 2)[0] == "echo")
                 {
                     Console.Write(Commands.Echo(input) + '\n');
                 }
 
                 // Type Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower()[..4] == "type")
+                else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ', 2)[0] == "type")
                 {
-                    Console.Write(Commands.Type(input[5..]) + '\n');
+                    Console.Write(Commands.Type(input.Split(' ', 2)[1] + '\n'));
                 }
 
                 // PWD Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower()[..3] == "pwd")
+                else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ')[0] == "pwd")
                 {
-                    //This should be working
                     Console.Write(Commands.PWD());
                 }
 

@@ -82,7 +82,7 @@ namespace src
                 if (File.Exists(fullPath) && IsExecutable(fullPath))
                 {
                     // Start process with args if they exist
-                    Process.Start(fullPath, args[1]).WaitForExit();
+                    Process.Start(args[0], args[1]).WaitForExit();
                     return;
                 }
             }

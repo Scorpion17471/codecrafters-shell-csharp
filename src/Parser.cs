@@ -54,6 +54,36 @@ namespace src
                         }
                     }
                 }
+                // Double Quote - Read until next double quote to complete arg
+                else if (c == '\"')
+                {
+                    if (i < input.Length - 1)
+                    {
+                        // Check for two double quotes in a row (empty arg)
+                        if (input[i + 1] == '\"') { i += 2; continue; }
+
+                        i++;
+                        while (i < input.Length && input[i] != '\"')
+                        {
+                            arg.Append(input[i]);
+                            i++;
+                        }
+                        if (i < input.Length - 2 && input[i + 1] == '\"')
+                        {
+                            i += 2; // Skip closing quote and opening quote of next arg
+                            while (i < input.Length && input[i] != '\"')
+                            {
+                                arg.Append(input[i]);
+                                i++;
+                            }
+                        }
+                        if (arg.ToString().Trim().Length > 0)
+                        {
+                            output.Add(arg.ToString());
+                            arg.Clear();
+                        }
+                    }
+                }
                 // White Space - Skip/End
                 else if (char.IsWhiteSpace(c))
                 {

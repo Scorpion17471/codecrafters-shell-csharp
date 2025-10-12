@@ -27,25 +27,31 @@ namespace src
                 // Single Quote - Read until next single quote to complete arg
                 if (c == '\'')
                 {
-                    i++;
-                    while (i < input.Length && input[i] != '\'')
+                    if (i < input.Length - 1)
                     {
-                        arg.Append(input[i]);
+                        // Check for two single quotes in a row (empty arg)
+                        if (input[i + 1] == '\'') { i += 2; continue; }
+
                         i++;
-                    }
-                    if (i < input.Length - 1 && input[i+1] == '\'')
-                    {
-                        i += 2; // Skip closing quote and opening quote of next arg
                         while (i < input.Length && input[i] != '\'')
                         {
                             arg.Append(input[i]);
                             i++;
                         }
-                    }
-                    if (arg.ToString().Trim().Length > 0)
-                    {
-                        output.Add(arg.ToString());
-                        arg.Clear();
+                        if (i < input.Length - 2 && input[i + 1] == '\'')
+                        {
+                            i += 2; // Skip closing quote and opening quote of next arg
+                            while (i < input.Length && input[i] != '\'')
+                            {
+                                arg.Append(input[i]);
+                                i++;
+                            }
+                        }
+                        if (arg.ToString().Trim().Length > 0)
+                        {
+                            output.Add(arg.ToString());
+                            arg.Clear();
+                        }
                     }
                 }
                 // White Space - Skip/End

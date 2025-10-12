@@ -19,7 +19,7 @@ namespace src
 
                 List<String> arguments = Parser.InputParser(input ?? String.Empty);
                 String command = arguments[0];
-                arguments.RemoveAt(0);
+                arguments = arguments[1..];
 
                 // DEBUGGING OUTPUT
                 //Console.WriteLine($"Command: {command}");
@@ -31,7 +31,14 @@ namespace src
                 // Check for exit command (Exit - Quits shell with given exit code)
                 if (!String.IsNullOrEmpty(input) && command.Equals("exit", StringComparison.OrdinalIgnoreCase))
                 {
-                    return Convert.ToInt32(arguments[0]);
+                    try
+                    {
+                        return Convert.ToInt32(arguments[0]);
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
                 }
 
                 // Echo Command

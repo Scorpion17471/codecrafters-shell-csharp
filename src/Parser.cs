@@ -35,7 +35,7 @@ namespace src
                     }
                     if (arg.Length > 0)
                     {
-                        output.Add(arg.ToString().Trim());
+                        output.Add(arg.ToString());
                         arg.Clear();
                     }
                 }
@@ -52,8 +52,8 @@ namespace src
                 {
                     // Normal Character
                     arg.Append(c);
-                    i++;
                 }
+                i++;
             }
             // Add last arg if exists
             if (arg.ToString().Trim().Length > 0)

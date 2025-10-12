@@ -26,17 +26,22 @@ namespace src
                 // Parse arguments, respecting single quotes
                 while (fast < input.Length)
                 {
-                    if (input[fast] == delimiter && slow != fast)
+                    // If delimiter is a single quote, look for closing quote, grab everything in between, and reset delimiter
+                    if (delimiter == '\'' && input[fast] == delimiter && delimiter == input[slow])
+                    {
+                        if (slow == 0) command = input[(slow + 1)..fast];
+                        else if (input[(slow + 1)..fast].Trim() != "") arguments.Add(input[(slow + 1)..fast].Trim());
+                        slow = fast;
+                        delimiter = ' ';
+                    }
+                    else if (delimiter == ' ' && input[fast] == ' ')
                     {
                         if (slow == 0) command = input[slow..fast].Trim();
                         else if (input[slow..fast].Trim() != "") arguments.Add(input[slow..fast].Trim());
                         slow = fast;
+                        delimiter = '\'';
                     }
-                    if (input[fast] == '\'')
-                    {
-                        delimiter = delimiter == ' ' ? '\'' : ' ';
-                        slow = fast + 1;
-                    }
+
                     fast++;
                 }
 

@@ -37,7 +37,7 @@ namespace src
                     // add arg/command and reset delimiter to space
                     else if (delimiter == '\'' && input[fast] == input[slow])
                     {
-                        if (slow == 0) command = input[(slow + 1)..fast];
+                        if (slow == 0) command = input[slow..fast];
                         else arguments.Add(input[(slow + 1)..fast]);
                         delimiter = ' ';
                         slow = fast;
@@ -45,7 +45,7 @@ namespace src
                     // If we reach a space and delimiter is space, add arg/command
                     else if (delimiter == ' ' && input[fast] == delimiter)
                     {
-                        if (slow == 0) command = input[(slow + 1)..fast].Trim();
+                        if (slow == 0) command = input[slow..fast].Trim();
                         else arguments.Add(input[(slow + 1)..fast].Trim());
                         slow = fast;
                     }

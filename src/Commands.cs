@@ -96,5 +96,24 @@ namespace src
         {
             return Directory.GetCurrentDirectory();
         }
+        // CD - Change directory to given path
+        public static void CD(string path)
+        {
+            try
+            {
+                Directory.SetCurrentDirectory(path);
+                return;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Console.WriteLine($"cd: {path}: No such file or directory");
+                return;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"cd: {e.Message}");
+                return;
+            }
+        }
     }
 }

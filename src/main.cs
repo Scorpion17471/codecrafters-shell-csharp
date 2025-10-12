@@ -16,29 +16,36 @@ namespace src
 
                 // Wait for user input
                 String? input = Console.ReadLine()?.Trim();
+                String command = input?.Split(' ', 2)[0] ?? "";
 
                 // Check for exit command (Exit - Quits shell with given exit code)
-                if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ', 2)[0] == "exit")
+                if (!String.IsNullOrEmpty(input) && command == "exit")
                 {
                     return Convert.ToInt32(input.Split(' ', 2)[1]);
                 }
 
                 // Echo Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ', 2)[0] == "echo")
+                else if (!String.IsNullOrEmpty(input) && command == "echo")
                 {
                     Console.Write(Commands.Echo(input) + '\n');
                 }
 
                 // Type Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ', 2)[0] == "type")
+                else if (!String.IsNullOrEmpty(input) && command == "type")
                 {
                     Console.Write(Commands.Type(input.Split(' ', 2)[1]) + '\n');
                 }
 
                 // PWD Command
-                else if (!String.IsNullOrEmpty(input) && input.ToLower().Split(' ')[0] == "pwd")
+                else if (!String.IsNullOrEmpty(input) && command == "pwd")
                 {
                     Console.Write(Commands.PWD() + '\n');
+                }
+
+                // CD Command
+                else if (!String.IsNullOrEmpty(input) && command == "cd")
+                {
+                    Commands.CD(input.Split(' ', 2)[1]);
                 }
 
                 // Unknown Command

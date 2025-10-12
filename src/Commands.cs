@@ -38,13 +38,13 @@ namespace src
         // Echo - Return everything in input string after "echo "
         public static string Echo(List<String> input)
         {
-            return String.Join(" ", input);
+            return String.Join(" ", input).Trim();
         }
         // Type - Return type associated with command (built-in vs unrecognized)
         public static string Type(List<String> commandArgs)
         {
             // Join commandArgs into single arg string
-            string command = String.Join(" ", commandArgs);
+            string command = String.Join(" ", commandArgs).Trim();
             // Check if command is in list of built-in commands
             if (commands.Contains(command))
             {

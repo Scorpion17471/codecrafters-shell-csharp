@@ -96,8 +96,9 @@ namespace src
             return Directory.GetCurrentDirectory();
         }
         // CD - Change directory to given path
-        public static void CD(string path)
+        public static void CD(List<String> paths)
         {
+            string path = String.Join(" ", paths).Trim();
             if (path[0] == '~')
             {
                 #pragma warning disable CS8600 // Suppress possible null assignment warning

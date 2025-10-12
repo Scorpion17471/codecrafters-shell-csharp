@@ -28,15 +28,18 @@ namespace src
                 if (c == '\'')
                 {
                     i++;
-                    while (i < input.Length && input[i] != '\'')
+                    if (input[i] != '\'')
                     {
-                        arg.Append(input[i]);
-                        i++;
-                    }
-                    if (arg.Length > 0)
-                    {
-                        output.Add(arg.ToString());
-                        arg.Clear();
+                        while (i < input.Length && input[i] != '\'')
+                        {
+                            arg.Append(input[i]);
+                            i++;
+                        }
+                        if (arg.Length > 0)
+                        {
+                            output.Add(arg.ToString());
+                            arg.Clear();
+                        }
                     }
                 }
                 // White Space - Skip/End

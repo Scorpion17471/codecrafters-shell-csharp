@@ -29,7 +29,7 @@ namespace src
                     if (input[fast] == delimiter && slow != fast)
                     {
                         if (slow == 0) command = input[slow..fast].Trim();
-                        else arguments.Add(input[slow..fast].Trim());
+                        else if (input[slow..fast].Trim() != "") arguments.Add(input[slow..fast].Trim());
                         slow = fast;
                     }
                     if (input[fast] == '\'')

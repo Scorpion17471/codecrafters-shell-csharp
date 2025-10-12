@@ -38,7 +38,7 @@ namespace src
         // Echo - Return everything in input string after "echo "
         public static string Echo(List<String> input)
         {
-            return String.Join("", input);
+            return String.Join(" ", input);
         }
         // Type - Return type associated with command (built-in vs unrecognized)
         public static string Type(List<String> commandArgs)

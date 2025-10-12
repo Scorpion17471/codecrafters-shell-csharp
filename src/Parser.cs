@@ -16,12 +16,12 @@ namespace src
             // Setup for argument parsing
             List<String> output = [];
             int i = 0;
+            StringBuilder arg = new();
 
             // Parse through input
             while (i < input.Length)
             {
                 // CASES: Single Quote, Normal Character, Whitespace
-                StringBuilder arg = new();
                 char c = input[i];
 
                 // Single Quote - Read until next single quote to complete arg
@@ -54,6 +54,11 @@ namespace src
                     arg.Append(c);
                     i++;
                 }
+            }
+            // Add last arg if exists
+            if (arg.ToString().Trim().Length > 0)
+            {
+                output.Add(arg.ToString().Trim());
             }
 
             return output;

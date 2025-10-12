@@ -21,11 +21,12 @@ namespace src
                 String command = arguments[0];
                 arguments.RemoveAt(0);
 
-                Console.WriteLine($"Command: {command}");
-                foreach (var arg in arguments)
-                {
-                    Console.WriteLine($"Arg: {arg}");
-                }
+                // DEBUGGING OUTPUT
+                //Console.WriteLine($"Command: {command}");
+                //foreach (var arg in arguments)
+                //{
+                //    Console.WriteLine($"Arg: {arg}");
+                //}
 
                 // Check for exit command (Exit - Quits shell with given exit code)
                 if (!String.IsNullOrEmpty(input) && command.Equals("exit", StringComparison.OrdinalIgnoreCase))

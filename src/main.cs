@@ -40,6 +40,9 @@ namespace src
                     fast++;
                 }
 
+                Console.WriteLine("Command: " + command);
+                Console.WriteLine("Arguments: " + String.Join(", ", arguments));
+
                 // Check for exit command (Exit - Quits shell with given exit code)
                 if (!String.IsNullOrEmpty(input) && command.Equals("exit", StringComparison.OrdinalIgnoreCase))
                 {

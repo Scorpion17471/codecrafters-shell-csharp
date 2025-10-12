@@ -36,13 +36,15 @@ namespace src
             }
         }
         // Echo - Return everything in input string after "echo "
-        public static string Echo(string input)
+        public static string Echo(List<String> input)
         {
-            return input[5..];
+            return String.Join("", input);
         }
         // Type - Return type associated with command (built-in vs unrecognized)
-        public static string Type(string command)
+        public static string Type(List<String> commandArgs)
         {
+            // Join commandArgs into single arg string
+            string command = String.Join(" ", commandArgs);
             // Check if command is in list of built-in commands
             if (commands.Contains(command))
             {
@@ -67,29 +69,26 @@ namespace src
             return $"{command}: not found";
         }
         // TestCommand - Return invalid command message
-        public static void TestCommand(string fullCommand)
-        {
-            // Split command into function and args (only first space)
-            string[] args = fullCommand.Split(' ', 2, StringSplitOptions.RemoveEmptyEntries);
-            
+        public static void TestCommand(string command, List<String> args)
+        {            
             // Check for command in any path provided
             #pragma warning disable CS8602 // Suppress possible null reference warning
             foreach (var path in Environment.GetEnvironmentVariable("PATH").Split(Path.PathSeparator))
             #pragma warning restore CS8602 // Restore possible null reference warning
             {
                 // Assemble full path to command
-                string fullPath = Path.Combine(path, args[0]);
+                string fullPath = Path.Combine(path, command);
                 // If file exists and is executable, run it with args
                 if (File.Exists(fullPath) && IsExecutable(fullPath))
                 {
                     // Start process with args if they exist
-                    Process.Start(args[0], args[1]).WaitForExit();
+                    Process.Start(command, args).WaitForExit();
                     return;
                 }
             }
 
             // Return invalid command message if command not found in any path
-            Console.WriteLine($"{args[0]}: command not found");
+            Console.WriteLine($"{command}: command not found");
         }
         // PWD - Return current working directory
         public static string PWD()

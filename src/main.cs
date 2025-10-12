@@ -16,34 +16,56 @@ namespace src
 
                 // Wait for user input
                 String? input = Console.ReadLine()?.Trim();
-                String command = input?.Split(' ', 2)[0] ?? "";
+
+                // Setup for argument parsing
+                String command = "";
+                List<String> arguments = [];
+                int slow = 0, fast = 0;
+                char delimiter = ' ';
+
+                // Parse arguments, respecting single quotes
+                while (fast < input.Length)
+                {
+                    if (input[fast] == '\'')
+                    {
+                        delimiter = delimiter == ' ' ? '\'' : ' ';
+                        slow = fast;
+                    }
+                    if (input[fast] == delimiter && slow != fast)
+                    {
+                        if (slow == 0) command = input[slow..fast].Trim();
+                        else arguments.Add(input[slow..fast].Trim());
+                        slow = fast;
+                    }
+                    fast++;
+                }
 
                 // Check for exit command (Exit - Quits shell with given exit code)
-                if (!String.IsNullOrEmpty(input) && command == "exit")
+                if (!String.IsNullOrEmpty(input) && command.Equals("exit", StringComparison.OrdinalIgnoreCase))
                 {
-                    return Convert.ToInt32(input.Split(' ', 2)[1]);
+                    return Convert.ToInt32(arguments[0]);
                 }
 
                 // Echo Command
-                else if (!String.IsNullOrEmpty(input) && command == "echo")
+                else if (!String.IsNullOrEmpty(input) && command.Equals("echo", StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.Write(Commands.Echo(input) + '\n');
+                    Console.Write(Commands.Echo(arguments) + '\n');
                 }
 
                 // Type Command
-                else if (!String.IsNullOrEmpty(input) && command == "type")
+                else if (!String.IsNullOrEmpty(input) && command.Equals("type", StringComparison.OrdinalIgnoreCase))
                 {
-                    Console.Write(Commands.Type(input.Split(' ', 2)[1]) + '\n');
+                    Console.Write(Commands.Type(arguments) + '\n');
                 }
 
                 // PWD Command
-                else if (!String.IsNullOrEmpty(input) && command == "pwd")
+                else if (!String.IsNullOrEmpty(input) && command.Equals("pwd", StringComparison.OrdinalIgnoreCase))
                 {
                     Console.Write(Commands.PWD() + '\n');
                 }
 
                 // CD Command
-                else if (!String.IsNullOrEmpty(input) && command == "cd")
+                else if (!String.IsNullOrEmpty(input) && command.Equals("cd", StringComparison.OrdinalIgnoreCase))
                 {
                     Commands.CD(input.Split(' ', 2)[1]);
                 }
@@ -52,7 +74,7 @@ namespace src
                 else
                 {
                     // Try command
-                    Commands.TestCommand(input);
+                    Commands.TestCommand(command, arguments);
                 }
             }
         }

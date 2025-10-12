@@ -21,21 +21,20 @@ namespace src
                 String command = "";
                 List<String> arguments = [];
                 int slow = 0, fast = 0;
-                char delimiter = ' ';
+                char delimiter = ' ', old_delimiter = ' ';
 
                 // Parse arguments, respecting single quotes
                 while (fast < input.Length)
                 {
-                    if (input[fast] == '\'')
-                    {
-                        delimiter = delimiter == ' ' ? '\'' : ' ';
-                        slow = fast;
-                    }
                     if (input[fast] == delimiter && slow != fast)
                     {
                         if (slow == 0) command = input[slow..fast].Trim();
                         else arguments.Add(input[slow..fast].Trim());
                         slow = fast;
+                    }
+                    if (input[fast] == '\'')
+                    {
+                        delimiter = delimiter == ' ' ? '\'' : ' ';
                     }
                     fast++;
                 }

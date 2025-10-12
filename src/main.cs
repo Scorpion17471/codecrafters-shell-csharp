@@ -29,7 +29,7 @@ namespace src
                     if (input[fast] == delimiter && slow != fast)
                     {
                         if (slow == 0) command = input[slow..fast].Trim();
-                        else arguments.Add(input[slow..fast].Trim());
+                        else arguments.Add(input[(slow + 1)..fast].Trim());
                         slow = fast;
                     }
                     if (input[fast] == '\'')
@@ -38,9 +38,6 @@ namespace src
                     }
                     fast++;
                 }
-
-                Console.WriteLine("Command: " + command);
-                Console.WriteLine("Arguments: " + String.Join(", ", arguments));
 
                 // Check for exit command (Exit - Quits shell with given exit code)
                 if (!String.IsNullOrEmpty(input) && command.Equals("exit", StringComparison.OrdinalIgnoreCase))

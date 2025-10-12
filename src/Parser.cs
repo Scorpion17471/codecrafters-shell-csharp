@@ -24,15 +24,15 @@ namespace src
                 // if we have hit the end of a token, add it to output
                 if (char.Equals(input[fast], delimiter))
                 {
-                    output.Add(input[slow..fast].Trim());
+                    string arg = input[slow..fast].Trim();
+                    if (arg.Length > 0) output.Add(arg);
                     slow = fast + 1;
                     // if we closed a quote token, reset delimiter to space
                     delimiter = delimiter == '\'' ? ' ' : delimiter;
                 }
-                // if we have hit a single quote, add arg that we had, change delimiter and move slow pointer
+                // if we have hit a single quote, change delimiter and move slow pointer
                 else if (char.Equals(input[fast], '\''))
                 {
-                    output.Add(input[slow..fast].Trim());
                     slow = fast + 1;
                     delimiter = '\'';
                 }

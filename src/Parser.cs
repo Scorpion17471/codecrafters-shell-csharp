@@ -15,32 +15,46 @@ namespace src
 
             // Setup for argument parsing
             List<String> output = [];
-            int slow = 0, fast = 0;
-            char delimiter = ' ';
+            int i = 0;
 
-            // Parse arguments, respecting single quotes
-            while (fast < input.Length)
+            // Parse through input
+            while (i < input.Length)
             {
-                // if we have hit the end of a token, add it to output
-                if (char.Equals(input[fast], delimiter))
+                // CASES: Single Quote, Normal Character, Whitespace
+                StringBuilder arg = new();
+                char c = input[i];
+
+                // Single Quote - Read until next single quote to complete arg
+                if (c == '\'')
                 {
-                    string arg = input[slow..fast].Trim();
-                    if (arg.Length > 0) output.Add(arg);
-                    slow = fast + 1;
-                    // if we closed a quote token, reset delimiter to space
-                    delimiter = delimiter == '\'' ? ' ' : delimiter;
+                    i++;
+                    while (i < input.Length && input[i] != '\'')
+                    {
+                        arg.Append(input[i]);
+                        i++;
+                    }
+                    if (arg.Length > 0)
+                    {
+                        output.Add(arg.ToString().Trim());
+                        arg.Clear();
+                    }
                 }
-                // if we have hit a single quote, change delimiter and move slow pointer
-                else if (char.Equals(input[fast], '\''))
+                // White Space - Skip/End
+                else if (char.IsWhiteSpace(c))
                 {
-                    slow = fast + 1;
-                    delimiter = '\'';
+                    if (arg.ToString().Trim().Length > 0)
+                    {
+                        output.Add(arg.ToString().Trim());
+                        arg.Clear();
+                    }
                 }
-                // move fast pointer forward
-                fast++;
+                else
+                {
+                    // Normal Character
+                    arg.Append(c);
+                    i++;
+                }
             }
-            // Add last argument if there is one
-            if (input[slow..fast].Trim().Length > 0) output.Add(input[slow..fast].Trim());
 
             return output;
         }

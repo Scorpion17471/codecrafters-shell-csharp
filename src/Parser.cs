@@ -39,6 +39,8 @@ namespace src
                 // move fast pointer forward
                 fast++;
             }
+            // Add last argument if there is one
+            if (input[slow..fast].Trim().Length > 0) output.Add(input[slow..fast].Trim());
 
             return output;
         }

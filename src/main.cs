@@ -21,7 +21,7 @@ namespace src
                 String command = "";
                 List<String> arguments = [];
                 int slow = 0, fast = 0;
-                char delimiter = ' ', old_delimiter = ' ';
+                char delimiter = ' ';
 
                 // Parse arguments, respecting single quotes
                 while (fast < input.Length)
@@ -29,12 +29,13 @@ namespace src
                     if (input[fast] == delimiter && slow != fast)
                     {
                         if (slow == 0) command = input[slow..fast].Trim();
-                        else arguments.Add(input[(slow + 1)..fast].Trim());
+                        else arguments.Add(input[slow..fast].Trim());
                         slow = fast;
                     }
                     if (input[fast] == '\'')
                     {
                         delimiter = delimiter == ' ' ? '\'' : ' ';
+                        slow = fast + 1;
                     }
                     fast++;
                 }

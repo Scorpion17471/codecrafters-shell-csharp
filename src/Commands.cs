@@ -99,6 +99,12 @@ namespace src
         // CD - Change directory to given path
         public static void CD(string path)
         {
+            if (path[0] == '~')
+            {
+                #pragma warning disable CS8600 // Suppress possible null assignment warning
+                path = Environment.GetEnvironmentVariable("HOME");
+                #pragma warning restore CS8600 // Restore possible null assignment warning
+            }
             try
             {
                 Directory.SetCurrentDirectory(path);

@@ -24,6 +24,14 @@ namespace src
                 // CASES: Single Quote, Normal Character, Whitespace
                 char c = input[i];
 
+                if (c == '\\' && i < input.Length - 1)
+                {
+                    // Escape Character - Add next character as normal character
+                    arg.Append(input[i + 1]);
+                    i += 2;
+                    continue;
+                }
+
                 // Single Quote - Read until next single quote to complete arg
                 if (c == '\'')
                 {

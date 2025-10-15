@@ -111,9 +111,9 @@ namespace src
                 {
                     output.Add(arg.ToString());
                 }
-
-                return output;
             }
+
+            return output;
         }
     }
 }

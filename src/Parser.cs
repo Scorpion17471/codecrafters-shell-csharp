@@ -13,6 +13,9 @@ namespace src
             // If input is null or empty, return list with empty string
             if (String.IsNullOrEmpty(input)) return [""];
 
+            // Clean out any doubled quotes (treated as nonexistent anyway)
+            input = input.Replace("''", "").Replace("\"\"", "");
+
             // Setup for argument parsing
             List<String> output = [];
             int i = 0;
@@ -21,39 +24,28 @@ namespace src
             // Parse through input
             while (i < input.Length)
             {
-                // CASES: Single Quote, Normal Character, Whitespace
+                // CASES: Escaped Character, Double Quote, Single Quote, Normal Character, Whitespace
                 char c = input[i];
 
+                // Escape Character - Add next character as normal character
                 if (c == '\\' && i < input.Length - 1)
                 {
-                    // Escape Character - Add next character as normal character
                     arg.Append(input[i + 1]);
                     i += 2;
                     continue;
                 }
 
-                // Single Quote - Read until next single quote to complete arg
+                // Single Quote - Read until next single quote to complete arg (no escaping)
                 if (c == '\'')
                 {
                     if (i < input.Length - 1)
                     {
-                        // Check for two single quotes in a row (empty arg)
-                        if (input[i + 1] == '\'') { i += 2; continue; }
-
+                        // Continue through, parsing each char
                         i++;
                         while (i < input.Length && input[i] != '\'')
                         {
                             arg.Append(input[i]);
                             i++;
-                        }
-                        if (i < input.Length - 2 && input[i + 1] == '\'')
-                        {
-                            i += 2; // Skip closing quote and opening quote of next arg
-                            while (i < input.Length && input[i] != '\'')
-                            {
-                                arg.Append(input[i]);
-                                i++;
-                            }
                         }
                         if (arg.ToString().Trim().Length > 0)
                         {
@@ -67,23 +59,15 @@ namespace src
                 {
                     if (i < input.Length - 1)
                     {
-                        // Check for two double quotes in a row (empty arg)
-                        if (input[i + 1] == '\"') { i += 2; continue; }
-
-                        i++;
                         while (i < input.Length && input[i] != '\"')
                         {
-                            arg.Append(input[i]);
-                            i++;
-                        }
-                        if (i < input.Length - 2 && input[i + 1] == '\"')
-                        {
-                            i += 2; // Skip closing quote and opening quote of next arg
-                            while (i < input.Length && input[i] != '\"')
+                            if (input[i] == '\\' && i < input.Length - 1 &&
+                                (input[i + 1] == '\"' || input[i + 1] == '\\'))
                             {
-                                arg.Append(input[i]);
                                 i++;
                             }
+                            arg.Append(input[i]);
+                            i++;
                         }
                         if (arg.ToString().Trim().Length > 0)
                         {

@@ -14,7 +14,7 @@ namespace src
             if (String.IsNullOrEmpty(input)) return [""];
 
             // Clean out any doubled quotes (treated as nonexistent anyway)
-            input = input.Replace("''", "").Replace("\"\"", "");
+            input = input.Replace("\'\'", "").Replace("\"\"", "");
 
             // Setup for argument parsing
             List<String> output = [];
@@ -35,27 +35,8 @@ namespace src
                     continue;
                 }
 
-                // Single Quote - Read until next single quote to complete arg (no escaping)
-                if (c == '\'')
-                {
-                    if (i < input.Length - 1)
-                    {
-                        // Continue through, parsing each char
-                        i++;
-                        while (i < input.Length && input[i] != '\'')
-                        {
-                            arg.Append(input[i]);
-                            i++;
-                        }
-                        if (arg.ToString().Trim().Length > 0)
-                        {
-                            output.Add(arg.ToString());
-                            arg.Clear();
-                        }
-                    }
-                }
                 // Double Quote - Read until next double quote to complete arg
-                else if (c == '\"')
+                if (c == '\"')
                 {
                     if (i < input.Length - 1)
                     {
@@ -66,6 +47,25 @@ namespace src
                             {
                                 i++;
                             }
+                            arg.Append(input[i]);
+                            i++;
+                        }
+                        if (arg.ToString().Trim().Length > 0)
+                        {
+                            output.Add(arg.ToString());
+                            arg.Clear();
+                        }
+                    }
+                }
+                // Single Quote - Read until next single quote to complete arg (no escaping)
+                else if (c == '\'')
+                {
+                    if (i < input.Length - 1)
+                    {
+                        // Continue through, parsing each char
+                        i++;
+                        while (i < input.Length && input[i] != '\'')
+                        {
                             arg.Append(input[i]);
                             i++;
                         }

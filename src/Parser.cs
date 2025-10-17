@@ -47,19 +47,10 @@ namespace src
                             if ((input[i] == '\\') && (i + 1 < input.Length) &&
                                 (input[i + 1] == '\"' || input[i + 1] == '\\'))
                             {
-                                arg.Append(input[i + 1]);
                                 i++;
                             }
-                            else
-                            {
-                                arg.Append(input[i]);
-                            }
+                            arg.Append(input[i]);
                             i++;
-                        }
-                        if (arg.ToString().Trim().Length > 0)
-                        {
-                            output.Add(arg.ToString());
-                            arg.Clear();
                         }
                     }
                 }
@@ -73,11 +64,6 @@ namespace src
                         {
                             arg.Append(input[i]);
                             i++;
-                        }
-                        if (arg.ToString().Trim().Length > 0)
-                        {
-                            output.Add(arg.ToString());
-                            arg.Clear();
                         }
                     }
                 }

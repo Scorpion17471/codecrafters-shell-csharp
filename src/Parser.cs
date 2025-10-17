@@ -14,7 +14,7 @@ namespace src
             if (String.IsNullOrEmpty(input)) return [""];
 
             // Clean out any doubled quotes (treated as nonexistent anyway)
-            input = input.Replace("\'\'", "").Replace("\"\"", "");
+            input = input.Replace("''", "").Replace("\"\"", "");
 
             // Setup for argument parsing
             List<String> output = [];
@@ -47,7 +47,7 @@ namespace src
                             {
                                 i++;
                             }
-                            arg.Append((char)input[i]);
+                            arg.Append(input[i]);
                             i++;
                         }
                         if (arg.ToString().Trim().Length > 0)

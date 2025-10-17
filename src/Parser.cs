@@ -10,8 +10,6 @@ namespace src
     {
         public static List<String> InputParser(string input)
         {
-            Console.WriteLine($"Parsing Input: {input}");
-
             // If input is null or empty, return list with empty string
             if (String.IsNullOrEmpty(input)) return [""];
 
@@ -38,10 +36,11 @@ namespace src
                 }
 
                 // Double Quote - Read until next double quote to complete arg
-                if (c == '\"')
+                else if (c == '\"')
                 {
                     if (i + 1 < input.Length)
                     {
+                        // Continue through, parsing each char
                         i++;
                         while (i < input.Length && input[i] != '\"')
                         {
@@ -65,7 +64,6 @@ namespace src
                 {
                     if (i + 1 < input.Length)
                     {
-                        // Continue through, parsing each char
                         i++;
                         while (i < input.Length && input[i] != '\'')
                         {

@@ -47,7 +47,7 @@ namespace src
                             {
                                 i++;
                             }
-                            arg.Append(input[i]);
+                            arg.Append((char)input[i]);
                             i++;
                         }
                         if (arg.ToString().Trim().Length > 0)

@@ -10,6 +10,8 @@ namespace src
     {
         public static List<String> InputParser(string input)
         {
+            Console.WriteLine($"Parsing Input: {input}");
+
             // If input is null or empty, return list with empty string
             if (String.IsNullOrEmpty(input)) return [""];
 
@@ -28,7 +30,7 @@ namespace src
                 char c = input[i];
 
                 // Escape Character - Add next character as normal character
-                if (c == '\\' && i < input.Length - 1)
+                if (c == '\\' && i + 1 < input.Length)
                 {
                     arg.Append(input[i + 1]);
                     i += 2;
@@ -38,11 +40,12 @@ namespace src
                 // Double Quote - Read until next double quote to complete arg
                 if (c == '\"')
                 {
-                    if (i < input.Length - 1)
+                    if (i + 1 < input.Length)
                     {
+                        i++;
                         while (i < input.Length && input[i] != '\"')
                         {
-                            if (input[i] == '\\' && i < input.Length - 1 &&
+                            if ((input[i] == '\\') && (i + 1 < input.Length) &&
                                 (input[i + 1] == '\"' || input[i + 1] == '\\'))
                             {
                                 i++;
@@ -60,7 +63,7 @@ namespace src
                 // Single Quote - Read until next single quote to complete arg (no escaping)
                 else if (c == '\'')
                 {
-                    if (i < input.Length - 1)
+                    if (i + 1 < input.Length)
                     {
                         // Continue through, parsing each char
                         i++;

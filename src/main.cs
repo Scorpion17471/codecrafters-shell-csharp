@@ -23,14 +23,14 @@ namespace src
                 String command = arguments[0];
                 arguments = arguments[1..];
                 
-                for (int j = 0; j < arguments.Length; j++)
+                for (int j = 0; j < arguments.Count; j++)
                 {
                     if (arguments[j] == "1>" || arguments[j] == ">")
                     {
-                        if (j + 1 < arguments.Length)
+                        if (j + 1 < arguments.Count)
                         {
                             String fileName = arguments[j + 1];
-                            FileStream fileStream = FileStream(fileName, FileMode.Append, FileAccess.Write);
+                            FileStream fileStream = new FileStream(fileName, FileMode.Append, FileAccess.Write);
                             StreamWriter streamWriter = new StreamWriter(fileStream)
                             {
                                 AutoFlush = true

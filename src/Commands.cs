@@ -16,7 +16,8 @@ namespace src
             "echo",
             "exit",
             "type",
-            "pwd"
+            "pwd",
+            "cd"
         ];
         // IsExecutable - Check if file is executable (Private helper function)
         private static bool IsExecutable(string path)
@@ -69,7 +70,7 @@ namespace src
             return $"{command}: not found";
         }
         // TestCommand - Return invalid command message
-        public static void TestCommand(string command, List<String> args)
+        public static string TestCommand(string command, List<String> args)
         {            
             // Check for command in any path provided
             #pragma warning disable CS8602 // Suppress possible null reference warning
@@ -83,12 +84,12 @@ namespace src
                 {
                     // Start process with args if they exist
                     Process.Start(command, args).WaitForExit();
-                    return;
+                    return "";
                 }
             }
 
             // Return invalid command message if command not found in any path
-            Console.WriteLine($"{command}: command not found");
+            return $"{command}: command not found";
         }
         // PWD - Return current working directory
         public static string PWD()
@@ -96,7 +97,7 @@ namespace src
             return Directory.GetCurrentDirectory();
         }
         // CD - Change directory to given path
-        public static void CD(List<String> paths)
+        public static string CD(List<String> paths)
         {
             string path = String.Join("", paths).Trim();
             if (path[0] == '~')
@@ -108,17 +109,15 @@ namespace src
             try
             {
                 Directory.SetCurrentDirectory(path);
-                return;
+                return "";
             }
             catch (DirectoryNotFoundException)
             {
-                Console.WriteLine($"cd: {path}: No such file or directory");
-                return;
+                return $"cd: {path}: No such file or directory";
             }
             catch (Exception e)
             {
-                Console.WriteLine($"cd: {e.Message}");
-                return;
+                return $"cd: {e.Message}";
             }
         }
     }

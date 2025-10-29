@@ -76,14 +76,14 @@ namespace src
                 // CD Command
                 else if (!String.IsNullOrEmpty(input) && command.Equals("cd", StringComparison.OrdinalIgnoreCase))
                 {
-                    Commands.CD(arguments);
+                    Console.Write(Commands.CD(arguments) + '\n');
                 }
 
                 // Unknown Command
                 else
                 {
                     // Try command
-                    Commands.TestCommand(command, arguments);
+                    Console.Write(Commands.TestCommand(command, arguments) + '\n');
                 }
             }
         }

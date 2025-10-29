@@ -96,7 +96,7 @@ namespace src
                     string output = p.StandardOutput.ReadToEnd();
                     // string error = p.StandardError.ReadToEnd();
                     p.WaitForExit();
-                    return output;
+                    return "$ " + output;
                 }
             }
 

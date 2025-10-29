@@ -83,8 +83,20 @@ namespace src
                 if (File.Exists(fullPath) && IsExecutable(fullPath))
                 {
                     // Start process with args if they exist
-                    Process.Start(command, args).WaitForExit();
-                    return "";
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = command,
+                        Arguments = String.Join(" ", args),
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = false
+                    };
+                    Process p = Process.Start(startInfo);
+                    string output = p.StandardOutput.ReadToEnd();
+                    // string error = p.StandardError.ReadToEnd();
+                    p.WaitForExit();
+                    return output;
                 }
             }
 

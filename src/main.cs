@@ -9,8 +9,10 @@ namespace src
     {
         public static int Main(string[] args)
         {
+            TextWriter originalOut = Console.Out;
             while (true)
             {
+                Console.SetOut(originalOut);
                 // Uncomment this line to pass the first stage
                 Console.Write("$ ");
 
@@ -20,13 +22,25 @@ namespace src
                 List<String> arguments = Parser.InputParser(input ?? String.Empty);
                 String command = arguments[0];
                 arguments = arguments[1..];
-
-                // DEBUGGING OUTPUT
-                //Console.WriteLine($"Command: {command}");
-                //foreach (var arg in arguments)
-                //{
-                //    Console.WriteLine($"Arg: {arg}");
-                //}
+                
+                for (int j = 0; j < arguments.Length; j++)
+                {
+                    if (arguments[j] == "1>" || arguments[j] == ">")
+                    {
+                        if (j + 1 < arguments.Length)
+                        {
+                            String fileName = arguments[j + 1];
+                            FileStream fileStream = FileStream(fileName, FileMode.Append, FileAccess.Write);
+                            StreamWriter streamWriter = new StreamWriter(fileStream)
+                            {
+                                AutoFlush = true
+                            };
+                            Console.SetOut(streamWriter);
+                            arguments.RemoveRange(j, 2);
+                            break;
+                        }
+                    }
+                }
 
                 // Check for exit command (Exit - Quits shell with given exit code)
                 if (!String.IsNullOrEmpty(input) && command.Equals("exit", StringComparison.OrdinalIgnoreCase))
